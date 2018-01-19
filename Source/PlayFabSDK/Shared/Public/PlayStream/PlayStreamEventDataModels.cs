@@ -26,6 +26,11 @@ namespace PlayFab.PlayStreamModels
     {
         public string EntityChain;
     }
+    public class EntityFilesSetEventData : PlayStreamEventBase
+    {
+        public string EntityChain;
+        public List<FileSet> Files;
+    }
     public class EntityLoggedInEventData : PlayStreamEventBase
     {
         public string EntityChain;
@@ -823,6 +828,43 @@ namespace PlayFab.PlayStreamModels
         Updated,
         Deleted,
         None
+    }
+
+    [Serializable]
+    public class FileSet
+    {
+        /// <summary>
+        /// The storage size according to the underlying provider.
+        /// </summary>
+        public int ByteCount;
+        /// <summary>
+        /// The checksum according to the underlying provider.
+        /// </summary>
+        public string Checksum;
+        /// <summary>
+        /// File that was updated.
+        /// </summary>
+        public string FileName;
+        /// <summary>
+        /// The operation that was performed.
+        /// </summary>
+        public OperationTypes? Operation;
+        /// <summary>
+        /// The storage size of the old file, if there was one.
+        /// </summary>
+        public int? PreviousByteCount;
+        /// <summary>
+        /// The storage size of the old file, if there was one.
+        /// </summary>
+        public string PreviousChecksum;
+        /// <summary>
+        /// The old file's unique storage path that was deleted by this operation, if there was one.
+        /// </summary>
+        public string PreviousStoragePath;
+        /// <summary>
+        /// The unique storage path for this set operation.
+        /// </summary>
+        public string StoragePath;
     }
 
     [Serializable]

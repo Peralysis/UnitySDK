@@ -9,6 +9,8 @@ namespace PlayFab.Events
         public event PlayFabResultEvent<ModifyCharacterVirtualCurrencyResult> OnServerAddCharacterVirtualCurrencyResultEvent;
         public event PlayFabRequestEvent<AddFriendRequest> OnServerAddFriendRequestEvent;
         public event PlayFabResultEvent<EmptyResult> OnServerAddFriendResultEvent;
+        public event PlayFabRequestEvent<AddGuildVirtualCurrencyRequest> OnServerAddGuildVirtualCurrencyRequestEvent;
+        public event PlayFabResultEvent<ModifyGuildVirtualCurrencyResult> OnServerAddGuildVirtualCurrencyResultEvent;
         public event PlayFabRequestEvent<AddPlayerTagRequest> OnServerAddPlayerTagRequestEvent;
         public event PlayFabResultEvent<AddPlayerTagResult> OnServerAddPlayerTagResultEvent;
         public event PlayFabRequestEvent<AddSharedGroupMembersRequest> OnServerAddSharedGroupMembersRequestEvent;
@@ -61,6 +63,14 @@ namespace PlayFab.Events
         public event PlayFabResultEvent<GetLeaderboardResult> OnServerGetFriendLeaderboardResultEvent;
         public event PlayFabRequestEvent<GetFriendsListRequest> OnServerGetFriendsListRequestEvent;
         public event PlayFabResultEvent<GetFriendsListResult> OnServerGetFriendsListResultEvent;
+        public event PlayFabRequestEvent<GetGuildDataRequest> OnServerGetGuildDataRequestEvent;
+        public event PlayFabResultEvent<GetGuildDataResult> OnServerGetGuildDataResultEvent;
+        public event PlayFabRequestEvent<GetGuildDataRequest> OnServerGetGuildInternalDataRequestEvent;
+        public event PlayFabResultEvent<GetGuildDataResult> OnServerGetGuildInternalDataResultEvent;
+        public event PlayFabRequestEvent<GetGuildDataRequest> OnServerGetGuildReadOnlyDataRequestEvent;
+        public event PlayFabResultEvent<GetGuildDataResult> OnServerGetGuildReadOnlyDataResultEvent;
+        public event PlayFabRequestEvent<GetGuildStatisticsRequest> OnServerGetGuildStatisticsRequestEvent;
+        public event PlayFabResultEvent<GetGuildStatisticsResult> OnServerGetGuildStatisticsResultEvent;
         public event PlayFabRequestEvent<GetLeaderboardRequest> OnServerGetLeaderboardRequestEvent;
         public event PlayFabResultEvent<GetLeaderboardResult> OnServerGetLeaderboardResultEvent;
         public event PlayFabRequestEvent<GetLeaderboardAroundCharacterRequest> OnServerGetLeaderboardAroundCharacterRequestEvent;
@@ -123,6 +133,8 @@ namespace PlayFab.Events
         public event PlayFabResultEvent<GrantCharacterToUserResult> OnServerGrantCharacterToUserResultEvent;
         public event PlayFabRequestEvent<GrantItemsToCharacterRequest> OnServerGrantItemsToCharacterRequestEvent;
         public event PlayFabResultEvent<GrantItemsToCharacterResult> OnServerGrantItemsToCharacterResultEvent;
+        public event PlayFabRequestEvent<GrantItemsToGuildRequest> OnServerGrantItemsToGuildRequestEvent;
+        public event PlayFabResultEvent<GrantItemsToGuildResult> OnServerGrantItemsToGuildResultEvent;
         public event PlayFabRequestEvent<GrantItemsToUserRequest> OnServerGrantItemsToUserRequestEvent;
         public event PlayFabResultEvent<GrantItemsToUserResult> OnServerGrantItemsToUserResultEvent;
         public event PlayFabRequestEvent<GrantItemsToUsersRequest> OnServerGrantItemsToUsersRequestEvent;
@@ -183,6 +195,8 @@ namespace PlayFab.Events
         public event PlayFabResultEvent<SetTitleDataResult> OnServerSetTitleInternalDataResultEvent;
         public event PlayFabRequestEvent<SubtractCharacterVirtualCurrencyRequest> OnServerSubtractCharacterVirtualCurrencyRequestEvent;
         public event PlayFabResultEvent<ModifyCharacterVirtualCurrencyResult> OnServerSubtractCharacterVirtualCurrencyResultEvent;
+        public event PlayFabRequestEvent<SubtractGuildVirtualCurrencyRequest> OnServerSubtractGuildVirtualCurrencyRequestEvent;
+        public event PlayFabResultEvent<ModifyGuildVirtualCurrencyResult> OnServerSubtractGuildVirtualCurrencyResultEvent;
         public event PlayFabRequestEvent<SubtractUserVirtualCurrencyRequest> OnServerSubtractUserVirtualCurrencyRequestEvent;
         public event PlayFabResultEvent<ModifyUserVirtualCurrencyResult> OnServerSubtractUserVirtualCurrencyResultEvent;
         public event PlayFabRequestEvent<UnlockContainerInstanceRequest> OnServerUnlockContainerInstanceRequestEvent;
@@ -201,6 +215,14 @@ namespace PlayFab.Events
         public event PlayFabResultEvent<UpdateCharacterDataResult> OnServerUpdateCharacterReadOnlyDataResultEvent;
         public event PlayFabRequestEvent<UpdateCharacterStatisticsRequest> OnServerUpdateCharacterStatisticsRequestEvent;
         public event PlayFabResultEvent<UpdateCharacterStatisticsResult> OnServerUpdateCharacterStatisticsResultEvent;
+        public event PlayFabRequestEvent<UpdateGuildDataRequest> OnServerUpdateGuildDataRequestEvent;
+        public event PlayFabResultEvent<UpdateGuildDataResult> OnServerUpdateGuildDataResultEvent;
+        public event PlayFabRequestEvent<UpdateGuildDataRequest> OnServerUpdateGuildInternalDataRequestEvent;
+        public event PlayFabResultEvent<UpdateGuildDataResult> OnServerUpdateGuildInternalDataResultEvent;
+        public event PlayFabRequestEvent<UpdateGuildDataRequest> OnServerUpdateGuildReadOnlyDataRequestEvent;
+        public event PlayFabResultEvent<UpdateGuildDataResult> OnServerUpdateGuildReadOnlyDataResultEvent;
+        public event PlayFabRequestEvent<UpdateGuildStatisticsRequest> OnServerUpdateGuildStatisticsRequestEvent;
+        public event PlayFabResultEvent<UpdateGuildStatisticsResult> OnServerUpdateGuildStatisticsResultEvent;
         public event PlayFabRequestEvent<UpdatePlayerStatisticsRequest> OnServerUpdatePlayerStatisticsRequestEvent;
         public event PlayFabResultEvent<UpdatePlayerStatisticsResult> OnServerUpdatePlayerStatisticsResultEvent;
         public event PlayFabRequestEvent<UpdateSharedGroupDataRequest> OnServerUpdateSharedGroupDataRequestEvent;

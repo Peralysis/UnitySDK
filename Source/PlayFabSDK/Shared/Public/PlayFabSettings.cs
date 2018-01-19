@@ -33,7 +33,7 @@ namespace PlayFab
         [Obsolete("This field will become private after Mar 1, 2017", false)]
         public static PlayFabSharedSettings PlayFabShared { get { if (_playFabShared == null) _playFabShared = GetSharedSettingsObjectPrivate(); return _playFabShared; } }
         public const string SdkVersion = "2.34.180102";
-        public const string BuildIdentifier = "jbuild_unitysdk__0";
+        public const string BuildIdentifier = "default_manual_build";
         public const string VersionString = "UnitySDK-2.34.180102";
         private const string DefaultPlayFabApiUrlPrivate = ".playfabapi.com";
         [Obsolete("This field will become private after Mar 1, 2017", false)]

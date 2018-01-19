@@ -97,7 +97,7 @@ namespace PlayFab.Internal
         public static void InitializeLogger(IPlayFabLogger setLogger = null)
         {
             if (_logger != null)
-                throw new Exception("Once initialized, the logger cannot be reset.");
+                throw new InvalidOperationException("Once initialized, the logger cannot be reset.");
             if (setLogger == null)
                 setLogger = new PlayFabLogger();
             _logger = setLogger;
@@ -132,6 +132,19 @@ namespace PlayFab.Internal
             _internalSignalR.Stop();
         }
 #endif
+
+        public static void SimpleGetCall(string fullUrl, Action<byte[]> successCallback, Action<string> errorCallback)
+        {
+            InitializeHttp();
+            _internalHttp.SimpleGetCall(fullUrl, successCallback, errorCallback);
+        }
+
+
+        public static void SimplePutCall(string fullUrl, byte[] payload, Action successCallback, Action<string> errorCallback)
+        {
+            InitializeHttp();
+            _internalHttp.SimplePutCall(fullUrl, payload, successCallback, errorCallback);
+        }
 
         /// <summary>
         /// Internal method for Make API Calls
@@ -302,7 +315,7 @@ namespace PlayFab.Internal
             }
         }
 
-        protected internal static PlayFabError GeneratePlayFabError(string json, object customData)
+        protected internal static PlayFabError GeneratePlayFabError(string apiEndpoint, string json, object customData)
         {
             JsonObject errorDict = null;
             Dictionary<string, List<string>> errorDetails = null;
@@ -321,6 +334,7 @@ namespace PlayFab.Internal
 
             return new PlayFabError
             {
+                ApiEndpoint = apiEndpoint,
                 HttpCode = errorDict != null && errorDict.ContainsKey("code") ? Convert.ToInt32(errorDict["code"]) : 400,
                 HttpStatus = errorDict != null && errorDict.ContainsKey("status") ? (string)errorDict["status"] : "BadRequest",
                 Error = errorDict != null && errorDict.ContainsKey("errorCode") ? (PlayFabErrorCode)Convert.ToInt32(errorDict["errorCode"]) : PlayFabErrorCode.ServiceUnavailable,

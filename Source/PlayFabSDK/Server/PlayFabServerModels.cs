@@ -87,6 +87,24 @@ namespace PlayFab.ServerModels
     }
 
     [Serializable]
+    public class AddGuildVirtualCurrencyRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Amount to be added to the Guild balance of the specified virtual currency. Maximum VC balance is Int32 (2,147,483,647).
+        /// Any increase over this value will be discarded.
+        /// </summary>
+        public int Amount;
+        /// <summary>
+        /// PlayFab unique identifier of the Guild whose virtual currency balance is to be increased.
+        /// </summary>
+        public string GuildId;
+        /// <summary>
+        /// Name of the virtual currency which is to be incremented.
+        /// </summary>
+        public string VirtualCurrency;
+    }
+
+    [Serializable]
     public class AddPlayerTagRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -1558,6 +1576,65 @@ namespace PlayFab.ServerModels
     }
 
     [Serializable]
+    public class GetGuildDataRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID for a specific guild
+        /// </summary>
+        public string GuildId;
+        /// <summary>
+        /// The version that currently exists according to the caller. The call will return the data for all of the keys if the
+        /// version in the system is greater than this.
+        /// </summary>
+        public uint? IfChangedFromDataVersion;
+        /// <summary>
+        /// Specific keys to search for in the custom user data.
+        /// </summary>
+        public List<string> Keys;
+    }
+
+    [Serializable]
+    public class GetGuildDataResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Guild specific data for this title.
+        /// </summary>
+        public Dictionary<string,UserDataRecord> Data;
+        /// <summary>
+        /// Indicates the current version of the data that has been set. This is incremented with every set call for that type of
+        /// data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
+        /// </summary>
+        public uint DataVersion;
+    }
+
+    [Serializable]
+    public class GetGuildStatisticsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// guild for which statistics are being requested
+        /// </summary>
+        public string GuildId;
+        /// <summary>
+        /// statistics to return
+        /// </summary>
+        public List<string> StatisticNames;
+        /// <summary>
+        /// statistics to return, if StatisticNames is not set (only statistics which have a version matching that provided will be
+        /// returned)
+        /// </summary>
+        public List<StatisticNameVersion> StatisticNameVersions;
+    }
+
+    [Serializable]
+    public class GetGuildStatisticsResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// User statistics for the requested user.
+        /// </summary>
+        public List<StatisticValue> Statistics;
+    }
+
+    [Serializable]
     public class GetLeaderboardAroundCharacterRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2431,6 +2508,36 @@ namespace PlayFab.ServerModels
     }
 
     [Serializable]
+    public class GrantItemsToGuildRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// String detailing any additional information concerning this operation.
+        /// </summary>
+        public string Annotation;
+        /// <summary>
+        /// Catalog version from which items are to be granted.
+        /// </summary>
+        public string CatalogVersion;
+        /// <summary>
+        /// Unique PlayFab assigned ID for a specific guild
+        /// </summary>
+        public string GuildId;
+        /// <summary>
+        /// Array of itemIds specifying which catalog items to grant to the Guild.
+        /// </summary>
+        public List<string> ItemIds;
+    }
+
+    [Serializable]
+    public class GrantItemsToGuildResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Array of items granted to Guild.
+        /// </summary>
+        public List<GrantedItemInstance> ItemGrantResults;
+    }
+
+    [Serializable]
     public class GrantItemsToUserRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -2714,6 +2821,24 @@ namespace PlayFab.ServerModels
         /// Balance of the virtual currency after modification.
         /// </summary>
         public int Balance;
+        /// <summary>
+        /// Name of the virtual currency which was modified.
+        /// </summary>
+        public string VirtualCurrency;
+    }
+
+    [Serializable]
+    public class ModifyGuildVirtualCurrencyResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Balance of the virtual currency after modification.
+        /// </summary>
+        public int Balance;
+        /// <summary>
+        /// Amount added or subtracted from the Guild's virtual currency. Maximum VC balance is Int32 (2,147,483,647). Any increase
+        /// over this value will be discarded.
+        /// </summary>
+        public int BalanceChange;
         /// <summary>
         /// Name of the virtual currency which was modified.
         /// </summary>
@@ -3985,6 +4110,23 @@ namespace PlayFab.ServerModels
     }
 
     [Serializable]
+    public class SubtractGuildVirtualCurrencyRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Amount to be subtracted from the Guild balance of the specified virtual currency.
+        /// </summary>
+        public int Amount;
+        /// <summary>
+        /// PlayFab unique identifier of the Guild whose virtual currency balance is to be decreased.
+        /// </summary>
+        public string GuildId;
+        /// <summary>
+        /// Name of the virtual currency which is to be decremented.
+        /// </summary>
+        public string VirtualCurrency;
+    }
+
+    [Serializable]
     public class SubtractUserVirtualCurrencyRequest : PlayFabRequestCommon
     {
         /// <summary>
@@ -4233,6 +4375,57 @@ namespace PlayFab.ServerModels
 
     [Serializable]
     public class UpdateCharacterStatisticsResult : PlayFabResultCommon
+    {
+    }
+
+    [Serializable]
+    public class UpdateGuildDataRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may
+        /// not begin with a '!' character or be null.
+        /// </summary>
+        public Dictionary<string,string> Data;
+        /// <summary>
+        /// Unique PlayFab assigned ID for a specific guild
+        /// </summary>
+        public string GuildId;
+        /// <summary>
+        /// Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language
+        /// constraints.  Use this to delete the keys directly.
+        /// </summary>
+        public List<string> KeysToRemove;
+        /// <summary>
+        /// Permission to be applied to all user data keys written in this request. Defaults to "private" if not set.
+        /// </summary>
+        public UserDataPermission? Permission;
+    }
+
+    [Serializable]
+    public class UpdateGuildDataResult : PlayFabResultCommon
+    {
+        /// <summary>
+        /// Indicates the current version of the data that has been set. This is incremented with every set call for that type of
+        /// data (read-only, internal, etc). This version can be provided in Get calls to find updated data.
+        /// </summary>
+        public uint DataVersion;
+    }
+
+    [Serializable]
+    public class UpdateGuildStatisticsRequest : PlayFabRequestCommon
+    {
+        /// <summary>
+        /// Unique PlayFab assigned ID for a specific guild
+        /// </summary>
+        public string GuildId;
+        /// <summary>
+        /// Statistics to be updated with the provided values
+        /// </summary>
+        public List<StatisticUpdate> Statistics;
+    }
+
+    [Serializable]
+    public class UpdateGuildStatisticsResult : PlayFabResultCommon
     {
     }
 
